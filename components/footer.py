@@ -7,7 +7,7 @@ def show_footer():
             ui.label("Event Hive").classes("text-xl text-bold")
             with ui.grid(columns=2).classes("items-center"):
                 email=ui.input("Enter Your e-mail").props("outlined").classes("text-black bg-white rounded w-[250px]")
-                ui.button("Subscribe").classes("bg-[#023e8a] h-[2rem]")
+                ui.button("Subscribe").classes("bg-#023e8a h-[50px]")
               
             
             with ui.row().classes(" text-bottom gap-8 "):
