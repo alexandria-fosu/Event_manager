@@ -1,5 +1,7 @@
 from nicegui import ui
-
+import requests
+from utils.api import base_url
+from components.event_card import show_event_card
 from components.navbar import show_navbar
 from components.footer import show_footer
 
@@ -38,14 +40,10 @@ def show_home_page():
                 ui.select(["Any Category"]).classes("w-48  h-10 bg-white").props("outlined")
         
     with ui.grid(columns=3).classes("w-full "):
-        for i in range(6):
-            with ui.card().classes("w-[30rem] h-[25rem]"):
-                ui.label("event title")
-                ui.image("/assets/8003786f9258a1f955b8ef4f6d1280c06d3659b1.jpg")
-
-                ui.label("Bestseller Book Bootcamp-write, Market & Publish your books-Lucknow").classes('text-bold text-2xl')
-                ui.label("Sunday 16 November").classes("text-blue")
-                ui.label("online-event: join anywhere").classes('text-gray-700')
+        response = requests.get(f"{base_url}/events?limit=6")
+        json_data = response.json()
+        for event in  json_data ["data"]:
+            show_event_card(event)
 
     with ui.column().classes("items center self-center"):
         ui.button("Load More.....").classes("w-full items-center mt-5 justify-center")    
@@ -88,11 +86,14 @@ def show_home_page():
     with ui.grid(columns=3).classes("w-full mb-50"):
         for i in range(3):
             with ui.card().classes("w-[30rem] h-[25rem]"):
-                ui.image("assets/2661d4f20d55464672c777fe2598b4a832227655.jpg")
+                with ui.column().style("background-image:url(assets/2661d4f20d55464672c777fe2598b4a832227655.jpg)").classes("w-full h-full"):                   
+                    ui.badge("free").classes("bg-white text-blue text-xl ml-2 mt-2")
 
-                ui.label("Bestseller Book Bootcamp-write, Market & Publish your books-Lucknow").classes('text-bold text-2xl')
-                ui.label("Sunday 16 November").classes("text-blue")
-                ui.label("online-event: join anywhere").classes('text-gray-700')
+                
+                with ui.column():
+                    ui.label("Bestseller Book Bootcamp-write, Market & Publish your books-Lucknow").classes('text-bold text-2xl')
+                    ui.label("Sunday 16 November").classes("text-blue")
+                    ui.label("online-event: join anywhere").classes('text-gray-700')
 
             
                 
